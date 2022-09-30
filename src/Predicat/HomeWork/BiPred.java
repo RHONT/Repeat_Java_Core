@@ -13,7 +13,9 @@ public class BiPred {
         map.put(4,"IO");
 
         BiPredicate<Integer,String> biPredicate=(a,b)->b.length()==a;
-        map.entrySet().stream().filter(entry->biPredicate.test(entry.getKey(), entry.getValue())).forEach(entry->System.out.println(entry.getKey() + " " + entry.getValue() ));
+        map.entrySet().stream().
+                filter(entry->biPredicate.test(entry.getKey(), entry.getValue())).
+                forEach(entry->System.out.println(entry.getKey() + " " + entry.getValue() ));
 
 
     }
