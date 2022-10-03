@@ -3,7 +3,7 @@ package Supplier.HomeWork.FindWord;
 import java.util.function.Supplier;
 
 public class WordString implements Supplier<String> {
-    private int count=-1;
+    private int count=0;
     private final String[] array;
     public WordString(String inputText) {
         array= inputText.split(" ");
@@ -15,13 +15,7 @@ public class WordString implements Supplier<String> {
 
     @Override
     public String get() {
-        count++;
-//        if (count<array.length){
-//            return array[count];
-//        }
-//        return "Пустая строка";
-//        Рефактор
-        return (count<array.length?array[count]:"Пустая строка");
+        return (count<array.length?array[count++]:"Пустая строка");
     }
 
 
