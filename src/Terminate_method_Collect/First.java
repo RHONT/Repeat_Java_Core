@@ -1,31 +1,57 @@
 package Terminate_method_Collect;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class First {
-    private List<Unt> untList= new ArrayList<>(List.of(
-            new Unt("Spider",10,20),
-            new Unt("Halk",40,1),
-            new Unt("Magneto",50,5),
-            new Unt("Runner",400,90),
-            new Unt("Medusa",250,20),
-            new Unt("Demon",600,80),
-            new Unt("Gorgula",900,60),
-            new Unt("Kurt",30,70)
-    ));
 
-    public static Map<String,List<Unt>> createMap(){
-        Map<String,List<Unt>> map=new HashMap<>();
+    public static void main(String[] args) {
+        List<Unit> untList= new ArrayList<>(List.of(
+                new Unit("Spider",10,20),
+                new Unit("Halk",40,1),
+                new Unit("Magneto",50,5),
+                new Unit("Runner",400,90),
+                new Unit("Medusa",250,20),
+                new Unit("Demon",600,80),
+                new Unit("Gorgula",900,60),
+                new Unit("Kurt",30,70)
+        ));
+
+
+        List<Unit> slowList = untList.stream().filter(a -> a.getSpeed() < 50).collect(Collectors.toList());
+        //Те же яйца, только в профиль.
+        List<Unit> slowList2 = untList.stream().
+                filter(a -> a.getSpeed() < 50).
+                collect(ArrayList::new,
+                        ArrayList::add,
+                        ArrayList::addAll);
+        //Теперь попробую сортировку по группам скорости быстрые-медленные
+        Map<String,List<Unit>> sortedList = untList.stream().
+                collect(First::createMap,First::addToMap,First::mergeMap);
+
+        Predicate<Unit> pre=(a)->a.getSpeed()<50;
+        Collector<Unit,List<Unit>,List<Unit>> collector=new NewCollector(pre);
+
+        List<Unit> newListCollect=untList.stream().collect(collector);
+        System.out.println(newListCollect);
+
+        System.out.println(slowList);
+        System.out.println(slowList2);
+        System.out.println(sortedList);
+
+
+    }
+
+    public static Map<String,List<Unit>> createMap(){
+        Map<String,List<Unit>> map=new HashMap<>();
         map.put("Slow Unit",new ArrayList<>());
         map.put("Faster Unit",new ArrayList<>());
         return map;
     }
 
-    public static void addToMap(Map<String,List<Unt>> map,Unt unt){
+    public static void addToMap(Map<String,List<Unit>> map, Unit unt){
         if (unt.getSpeed()<50) {
             map.get("Slow Unit").add(unt);
         }
@@ -35,70 +61,56 @@ public class First {
 
     }
 
-    public static void mergeMap(Map<String,List<Unt>> map,Map<String,List<Unt>> finishMap){
+    public static void mergeMap(Map<String,List<Unit>> map, Map<String,List<Unit>> finishMap){
         finishMap.forEach((k,v)->map.get(k).addAll(v));
-
     }
-
-    public static void main(String[] args) {
-        First first = new First();
-        List<Unt> slowList = first.untList.stream().filter(a -> a.getSpeed() < 50).collect(Collectors.toList());
-        List<Unt> slowList2 = first.untList.stream().
-                filter(a -> a.getSpeed() < 50).
-                collect(ArrayList::new,
-                        ArrayList::add,
-                        ArrayList::addAll);
-        //Теперь попробую сортировку
-        Map<String,List<Unt>> sortedList = first.untList.stream().
-                collect(First::createMap,First::addToMap,First::mergeMap);
-
-
-        System.out.println(slowList);
-        System.out.println(slowList2);
-        System.out.println(sortedList);
-
-    }
-
-    private class Unt{
-        private final String name;
-        private int health;
-        private int speed;
-
-        public Unt(String name, int health, int speed) {
-            this.name = name;
-            this.health = health;
-            this.speed = speed;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getHealth() {
-            return health;
-        }
-
-        public void setHealth(int health) {
-            this.health = health;
-        }
-
-        public int getSpeed() {
-            return speed;
-        }
-
-        public void setSpeed(int speed) {
-            this.speed = speed;
-        }
-
-        @Override
-        public String toString() {
-            return "Unt{" +
-                    "name='" + name + '\'' +
-                    ", health=" + health +
-                    ", speed=" + speed +
-                    '}';
-        }
-    }
-
 
 }
+class NewCollector implements Collector<Unit,List<Unit>,List<Unit>>{
+    private Predicate<Unit> predicate;
+
+    public NewCollector(Predicate<Unit> predicate) {
+        this.predicate = predicate;
+    }
+
+    @Override
+    public Supplier<List<Unit>> supplier() {
+        return ArrayList::new;
+    }
+
+    @Override
+    public BiConsumer<List<Unit>, Unit> accumulator() {
+
+        return (a,b)->{
+            if (predicate.test(b)) {
+                a.add(b);
+            }
+        };
+    }
+
+    @Override
+    public BinaryOperator<List<Unit>> combiner() {
+        return (a,b)->{
+            List<Unit> result=new ArrayList<>();
+            result.addAll(a);
+            result.addAll(b);
+            return result;
+        };
+    }
+
+    @Override
+    public Function<List<Unit>, List<Unit>> finisher() {
+        return Function.identity();
+//        return(a)->{
+//            List<Unit> resultList=new ArrayList<>();
+//            resultList.addAll(a);
+//            return resultList;
+//        };
+    }
+    // Без этого параметра ничего не работает!
+    @Override
+    public Set<Characteristics> characteristics() {
+        return Set.of();
+    }
+}
+
