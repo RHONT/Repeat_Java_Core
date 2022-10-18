@@ -2,26 +2,28 @@ package Test;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
 
 public class CodeWar {
     static String HightResult=new String();
     public static void main(String[] args) {
+        long startMethod=System.nanoTime();
 
-        System.out.println(Arrays.toString(monkeyCount(10)));
-        System.out.println(createPhoneNumber(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}));
-        System.out.println(disemvowel("FUUCK"));
-        System.out.println(sortDesc(55511122));
-        System.out.println(Arrays.deepToString(partlist(new String[]{"First","Second","Third","Fourth","Fives"})));
-        System.out.println(makeReadable(9025));
+//        System.out.println(Arrays.toString(monkeyCount(10)));
+//        System.out.println(createPhoneNumber(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}));
+//        System.out.println(disemvowel("FUUCK"));
+//        System.out.println(sortDesc(55511122));
+//        System.out.println(Arrays.deepToString(partlist(new String[]{"First","Second","Third","Fourth","Fives"})));
+//        System.out.println(makeReadable(9025));
+//        System.out.println(high("aa b"));
 
-        System.out.println(high("aa b"));
-        System.out.println(high("b aa"));
-        System.out.println(high("bb d"));
-        System.out.println(high("d bb"));
-        System.out.println(HightResult);
+//        long finishMethod=System.nanoTime();
+//        System.out.println(digital_root(999));
+//        System.out.println("Метод работал:" +((finishMethod-startMethod)/100000));
+        System.out.println(print(41));
+
 
     }
     public static int[] monkeyCount(final int n){
@@ -149,6 +151,79 @@ public class CodeWar {
 
 // Пидоры они короче.
         return key;
+    }
+
+    public static int digital_root(int n) {
+        return (n != 0 && n%9 == 0) ? 9 : n % 9;
+//        if (n==0) return 0;
+//
+//        List<Integer> listResult=new ArrayList<>();
+//        Optional<Integer> result;
+//        listResult=fillArrayInts(n);
+//
+//        while (listResult.size()>1){
+//            result=listResult.stream().reduce(Integer::sum);
+//            listResult.clear();
+//            listResult=fillArrayInts(result.get());
+//        }
+//        return listResult.get(0);
+
+//        String s = String.valueOf(n);
+//        String [] arrStr=s.split("");
+//        int sum=0;
+//        do {
+//            for (String c:arrStr) {
+//                sum+= Integer.parseInt(c);
+//            }
+//            s=String.valueOf(sum);
+//            if (s.length()>1) {
+//                arrStr=s.split("");
+//                sum=0;
+//            }
+//        } while (sum==0);
+//        return sum;
+
+
+
+    }
+
+    public static List<Integer> fillArrayInts(int n){
+
+        int bufferInt=n;
+        List<Integer> listResult=new ArrayList<>();
+
+        IntFunction<Integer> fun= a-> a%10;
+
+        while (bufferInt!=0){
+            listResult.add(fun.apply(bufferInt));
+            bufferInt/=10;
+        }
+        return listResult;
+    }
+
+    public static String print(int n) {
+        if (n%2==0 || n<0) {
+            return null;
+        }
+        int indexForSpace=n;
+        StringBuilder stringBuilder=new StringBuilder();
+        String diamond="*";
+        String space=" ";
+
+        for (int i=1;i<=n;i+=2) {
+            stringBuilder.append(space.repeat(indexForSpace/2)).append(diamond.repeat(i)).append("\n");
+            indexForSpace-=2;
+        }
+
+        indexForSpace=3;
+
+        for (int i=n-2;i>=1;i-=2) {
+            stringBuilder.append(space.repeat(indexForSpace/2)).append(diamond.repeat(i)).append("\n");
+            indexForSpace+=2;
+        }
+
+        return stringBuilder.toString();
+
     }
 
 }
