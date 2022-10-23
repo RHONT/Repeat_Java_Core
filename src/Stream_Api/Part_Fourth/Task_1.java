@@ -15,26 +15,16 @@ public class Task_1 {
     public static void main(String[] args) {
 
         final String input="Мама мыла раму, Маз, Камаз, водолаз, РПГ, С300, у каратиста.";
+        ToIntFunction<String> functionVowels=new SequanceVowels();
 
         List<String> words= Arrays
                 .stream(input.split(" "))
                 .map(a->a.trim().replaceAll("[,.!?]",""))
+                .filter(a -> a.length() > a.replaceAll("[аиоуё]", "").length())
+                .sorted(Comparator.comparingInt(functionVowels))
                 .collect(Collectors.toList());
 
-//        ToIntFunction<String> vowelsFunc=a->{
-//            int count = 0;
-//            String vowels = "аиыоуё";
-//            for (char c : a.toCharArray()) {
-//                if (vowels.contains(String.valueOf(c))) count++;
-//            }
-//            return count;
-//        };
-
-        List<String> strings = words.
-                stream()
-                .filter(a -> a.length() > a.replaceAll("[аиоуё]", "").length())
-                .sorted(Comparator.comparingInt(new SequanceVowels())).collect(Collectors.toList());
-        strings.forEach(System.out::println);
+        words.forEach(System.out::println);
     }
 }
 
