@@ -21,7 +21,7 @@ public class Task_1 {
 
         Cat[] cats = new Cat[] { cat1, cat2, cat3, cat4, cat5, cat6, cat7 };
 
-        Comparator<Cat> catComparator=(a,b)->a.getName().length()-b.getName().length();
+        Comparator<Cat> catComparator= Comparator.comparingInt(a -> a.getName().length());
 
         for (Cat cat:cats) {
             System.out.println(cat);
