@@ -13,7 +13,8 @@ public class Task_3 {
     public static void main(String[] args) {
         try {
             Path maxPath= Files.list(Path.of("D:\\Рабочая\\2022\\Октрябрь\\19\\")).
-                    max(Comparator.comparingLong((a)->a.toFile().length())).get();
+                    max(Comparator.comparingLong((a)->a.toFile().length()))
+                    .get();
             System.out.println(maxPath);
         } catch (IOException e) {
             e.printStackTrace();
