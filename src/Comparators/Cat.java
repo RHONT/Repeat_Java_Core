@@ -1,8 +1,10 @@
 package Comparators;
 
-public class Cat {
+public class Cat implements Comparable<Cat>{
+
     private String name;
     private int age;
+
     public Cat(String name, int age) {
         super();
         this.name = name;
@@ -26,5 +28,10 @@ public class Cat {
     @Override
     public String toString() {
         return "Cat [name=" + name + ", age=" + age + "]";
+    }
+
+    @Override
+    public int compareTo(Cat o) {
+        return Integer.compare(name.length(), o.getName().length());
     }
 }

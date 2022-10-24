@@ -5,7 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.function.BiConsumer;
 
-public class EndStringFile {
+/**
+ * Реализуйте BiConsumer<String, File> добавляющий строку в конец файла указанного в
+ * качестве параметра.
+ */
+public class Task_3 {
     public static void main(String[] args) {
         File f=new File("run.txt");
         BiConsumer<String,File> biConsumer=(a,b)->{

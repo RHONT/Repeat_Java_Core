@@ -17,10 +17,10 @@ public class Task_3 {
         List<Integer> digitsFirst = new ArrayList<>(List.of(5, 0, 3, 4));
         List<Integer> digitsSecond = new ArrayList<>(List.of(10, -2, 5));
 
-        BinaryOperator<List<Integer>> onlyWithMin=(a,b)->{
-            int minA=a.stream().min(Comparator.comparingInt(c -> c)).get();
-            int minB=b.stream().min(Comparator.comparingInt(c -> c)).get();
-            if (minA>minB) return b;
+        BinaryOperator<List<Integer>> onlyWithMin = (a, b) -> {
+            int minA = a.stream().min(Comparator.comparingInt(c -> c)).get();
+            int minB = b.stream().min(Comparator.comparingInt(c -> c)).get();
+            if (minA > minB) return b;
             return a;
         };
 

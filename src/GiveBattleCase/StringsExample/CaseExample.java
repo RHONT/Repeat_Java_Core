@@ -4,18 +4,15 @@ import java.util.Scanner;
 
 public class CaseExample {
 
-    static Scanner inputValueConsole=new Scanner(System.in);
+    static Scanner inputValueConsole = new Scanner(System.in);
     static String valueFromConsole;
 
     public static void main(String[] args) {
 
-        valueFromConsole=inputValueConsole.nextLine();
+        valueFromConsole = inputValueConsole.nextLine();
 
 
         System.out.println(VariantInput.getCountVariant(valueFromConsole).getMessage());
-
-
-
 
 //        switch (valueFromConsole) {
 //            case "1":
@@ -40,12 +37,10 @@ public class CaseExample {
 //        System.out.println(valueFromConsole);
 
 
-
     }
 
-    public static void foo(){
-        valueFromConsole=valueFromConsole.concat(" "+ valueFromConsole + "!");
-        System.out.println(valueFromConsole);
+    public static void foo() {
+        System.out.println(valueFromConsole.concat(" " + valueFromConsole + "!"));
     }
 
 

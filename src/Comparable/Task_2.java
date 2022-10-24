@@ -2,13 +2,20 @@ package Comparable;
 
 import java.util.*;
 
+/**
+ * Реализуйте обобщенный метод поиска максимального элемента в массиве объектов. Для этого
+ * укажите ограничение для параметра типа этого метода как Comparable<T>. Сигнатура такого
+ * метода должна выглядеть следующим образом:
+ * <T extends Comparable<T>> T max(T[] array)
+ */
+
 public class Task_2 {
     public static void main(String[] args) {
-        Task_1 [] tasks={new Task_1(15,20),
-                new Task_1(30,20),
-                new Task_1(40,20),
-                new Task_1(25,20),
-                new Task_1(15,20)};
+        Rectangle[] tasks={new Rectangle(15,20),
+                new Rectangle(30,20),
+                new Rectangle(40,20),
+                new Rectangle(25,20),
+                new Rectangle(15,20)};
 
         System.out.println(max(tasks));
 

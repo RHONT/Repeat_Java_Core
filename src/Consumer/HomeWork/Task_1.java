@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class OddNumber_1 {
+/**
+ * Реализуйте Consumer<Integer> с помощью которого выведите на экран все нечетные
+ * числа содержащиеся в List<Integer>.
+ */
+public class Task_1 {
     public static void main(String[] args) {
 
         Consumer<Integer> cons= a->{
