@@ -18,22 +18,22 @@ public class Task_2 {
         ProgrammingLanguage lang4 = new ProgrammingLanguage("C++", DifficultyLevel.HARD);
         ProgrammingLanguage lang5 = new ProgrammingLanguage("JS", DifficultyLevel.EASY);
 
-        Predicate<ProgrammingLanguage> predicate=findNeedLang(DifficultyLevel.EASY);
+        Predicate<ProgrammingLanguage> predicate = findNeedLang(DifficultyLevel.EASY);
 
         List<ProgrammingLanguage> languages = List.of(lang1, lang2, lang3, lang4, lang5);
 
-        Optional<ProgrammingLanguage> resultLang=languages.stream().filter(predicate).findFirst();
+        Optional<ProgrammingLanguage> resultLang = languages.stream().filter(predicate).findFirst();
         resultLang.ifPresent(System.out::println);
 
 
     }
 
-    static Predicate<ProgrammingLanguage> findNeedLang(DifficultyLevel difficultyLevel){
+    static Predicate<ProgrammingLanguage> findNeedLang(DifficultyLevel difficultyLevel) {
 
-        class checkLang implements Predicate<ProgrammingLanguage>{
+        class checkLang implements Predicate<ProgrammingLanguage> {
             @Override
             public boolean test(ProgrammingLanguage programmingLanguage) {
-                if (programmingLanguage.getComplexity()==difficultyLevel)
+                if (programmingLanguage.getComplexity() == difficultyLevel)
                     return true;
                 return false;
             }
@@ -43,11 +43,10 @@ public class Task_2 {
 }
 
 
-
-
 enum DifficultyLevel {
     EASY, MEDIUM, HARD;
 }
+
 class ProgrammingLanguage {
     private String name;
     private DifficultyLevel complexity;

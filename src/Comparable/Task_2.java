@@ -11,17 +11,18 @@ import java.util.*;
 
 public class Task_2 {
     public static void main(String[] args) {
-        Rectangle[] tasks={new Rectangle(15,20),
-                new Rectangle(30,20),
-                new Rectangle(40,20),
-                new Rectangle(25,20),
-                new Rectangle(15,20)};
+        Rectangle[] tasks = {new Rectangle(15, 20),
+                new Rectangle(30, 20),
+                new Rectangle(40, 20),
+                new Rectangle(25, 20),
+                new Rectangle(15, 20)};
 
         System.out.println(max(tasks));
 
     }
-    public static <T extends Comparable<T>>T max(T[] array){
-        Arrays.sort(array,Comparator.reverseOrder());
+
+    public static <T extends Comparable<T>> T max(T[] array) {
+        Arrays.sort(array, Comparator.reverseOrder());
         return array[0];
     }
 }

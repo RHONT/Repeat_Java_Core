@@ -1,4 +1,4 @@
-package Collectors;
+package Stream_Api.Collectors;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
@@ -14,6 +14,10 @@ import java.util.stream.Collectors;
 public class OddEvenNumber {
     public static void main(String[] args) {
         List<Integer> listNumber = List.of(1, 2, 3, 4, 5, 6, 7);
+
+//        Map<Integer, String> result = listNumber.stream()
+//                .collect(Stream_Api.Collectors.toMap(Function.identity(), a -> (a % 2 == 0) ? "even" : "odd"));
+//        System.out.println(result);
 
         Function<Integer, String> keyMapper = a -> (a % 2 == 0) ? "even" : "odd";
         Function<Integer, List<Integer>> valueMapper = List::of;
@@ -36,5 +40,7 @@ public class OddEvenNumber {
 
         System.out.println(resultMap);
         System.out.println(groupByMap);
+
+        System.out.println("123.txt".lastIndexOf("."));
     }
 }
